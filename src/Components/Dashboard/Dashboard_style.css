@@ -1,0 +1,55 @@
+.navbarComponent {
+    width: 100%;
+    height: 10vh;
+    position: fixed;
+    z-index: 10;
+    background-color: white;
+}
+
+.sectionContainer {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sidebarContainer {
+    height: 100vh;
+    background-color: white;
+    z-Index: 10;
+}
+
+.sidebarContent {
+    position: fixed;
+    /* border: 2px solid brown; */
+    top: 10vh;
+    height: 90vh;
+}
+
+.sectionNoteContainer {
+    width: 80%;
+    position: relative;
+    margin-top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbarTakeNote, .displayNoteContainer {
+    width: 100%;
+    display: flex;
+    margin: 20px 0;
+}
+
+.navbarTakeNote {
+    justify-content: center;
+}
+
+.displayNoteContainer {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding-right: 10%;
+}
+
+
