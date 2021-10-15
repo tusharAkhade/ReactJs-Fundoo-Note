@@ -11,12 +11,12 @@
 }
 
 .signup-details-and-advertise-container {
-    height: 80%;
+    height: 600px;
     padding: 3%;
     display: flex;
     border: 1px solid rgb(207, 204, 204);
     border-radius: 8px;
-    width: 50vw;
+    width: 670px;
     justify-content: space-between;
 }
 
@@ -26,17 +26,26 @@
     width: 55%;
 }
 
-.logo, .text {
+.signUpLogo, .signUpText {
+    text-align: center;
     width: 100%;
     /* border: 3px solid brown; */
 }
 
 .name-text, .password-text, .confirm-password-text {
     width: 48%;
+}
+
+.row1 {
+    /* width: 100%; */
     display: flex;
     justify-content: space-between;
 }
 
+.firstNameContainer {
+    width: 100%;
+    border: 1px solid red;
+}
 .row1, .row3 {
     display: flex;
     justify-content: space-between;
@@ -64,8 +73,57 @@
 
 .row3 {
     /* border: 2px solid blue; */
-    position: relative;
+    /* position: relative;
     top: 8%;
-    left: 20%;
+    left: 20%; */
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.signInPageBtn {
+    padding-top: 10px;
+    color: blue;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 900px) {
+    .signup-details-and-advertise-container {
+        width: 400px;
+    }
+    
+    .advertise-container {
+        display: none;
+    }
+
+    .signup-details {
+        width: 100%;
+    }
+
+    .signUpLogo, .signUpText {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .name-text, .password-text, .confirm-password-text {
+        width: 100%;
+    }
+
+    .signup-container {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .signup-details-and-advertise-container {
+        border: none;
+        width: 100%;
+    }
+
+    .row1 {
+        width: 100%;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
 }
 
