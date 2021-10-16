@@ -46,6 +46,10 @@
     justify-content: center;
 }
 
+.hideTakeNote {
+    display: none;
+}
+
 .displayNoteContainer {
     flex-wrap: wrap;
     justify-content: space-evenly;
