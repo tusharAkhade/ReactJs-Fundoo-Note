@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
-import { addArchiveNotes, deleteNotes, updateNoteColor, updateNotes } from '../service/DataService';
+import { addArchiveNotes, deleteRestoreNotes, updateNoteColor, updateNotes } from '../service/DataService';
 import Chip from '@mui/material/Chip';
 
 function ViewNote({note}) {
@@ -69,10 +69,20 @@ function ViewNote({note}) {
         console.log(note.isDeleted)
         let obj = {
             noteIdList: [note.id],
-            isDeleted: !note.isDeleted,
+            isDeleted: true,
         }
-        deleteNotes(obj)
+        deleteRestoreNotes(obj)
     }
+
+    let restoreNote = () => {
+        let obj = {
+            noteIdList: [note.id],
+            isDeleted: false,
+        }
+        deleteRestoreNotes(obj)
+    }
+
+
     return (
         <React.Fragment>
             <div className="noteItem" style={{ backgroundColor: note.color }} >
@@ -93,7 +103,7 @@ function ViewNote({note}) {
                     </div>
                 }
                 <div className="noteIcon">
-                    <Icons name="ViewNote" actionType="UpdateNote" type="displayNotes" getColor={changeColor} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
+                    <Icons name="ViewNote" actionType="UpdateNote" type="displayNotes" getColor={changeColor} restoreNote={restoreNote} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
                 </div>
             </div>
             <div>
@@ -112,7 +122,7 @@ function ViewNote({note}) {
                     </DialogContent>
                     <DialogActions style={{ backgroundColor: note.color }}>
                         <div className="row3OfNote2">
-                            <Icons name="ViewNote" actionType="UpdateNote" type="displayNote" getColor={changeColor} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
+                            <Icons name="ViewNote" actionType="UpdateNote" type="displayNote" getColor={changeColor} restoreNote={restoreNote} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
                         </div>
                     </DialogActions>
                 </Dialog>
