@@ -40,7 +40,7 @@ export const addArchiveNotes = async (obj) => {
     return response
 }
 
-export const deleteNotes = async (obj) => {
+export const deleteRestoreNotes = async (obj) => {
     let response = await axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/trashNotes', obj, config)
 }
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import MiniDrawer from '../Drawer'
 import Navbar from '../Navbar/Navbar'
 import { getNotes } from '../service/DataService'
@@ -7,7 +8,7 @@ import TakeNoteTwo from '../TakeNoteTwo/TakeNoteTwo'
 import ViewNote from '../ViewNotes/ViewNote'
 import './Dashboard_style.css'
 
-function Dashboard() {
+function Dashboard(props) {
     const [openNote, setOpenNote] = React.useState(false)
     const [noteArray, setNoteArray] = React.useState([])
 
@@ -70,7 +71,7 @@ function Dashboard() {
                 </div>
 
                 <div className="sectionNoteContainer">
-                    <div className="navbarTakeNote">
+                    <div className={(props.noteType == "Archive" || props.noteType == "Bin") ? "hideTakeNote" : "navbarTakeNote"}>
                         {
                             openNote == false ? <TakeNoteOne listenToTakeNoteOne= {listenToTakeNoteOne} /> : <TakeNoteTwo listenToTakeNoteOne= {listenToTakeNoteOne}/>
                         }
@@ -87,7 +88,12 @@ function Dashboard() {
     )
 }
 
+const mapStateToProps = state => {
+    console.log(state)
+    return {
+        noteType: state.clicked
+    }
+}
 
-
-export default Dashboard
+export default connect(mapStateToProps)(Dashboard)
 

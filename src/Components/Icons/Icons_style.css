@@ -21,7 +21,7 @@
     /* border: 2px solid blue; */
     cursor: context-menu;
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .iconOfNote2 {
@@ -66,8 +66,15 @@
     align-items: center;
 }
 
-#removeDeleteIcon {
+#hideIcon {
     display: none;
+}
+
+#viewRestoreIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid; */
 }
 
 #iconOfNote2-7 {
