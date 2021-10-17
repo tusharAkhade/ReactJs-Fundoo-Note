@@ -10,7 +10,7 @@ import './Dashboard_style.css'
 
 function Dashboard(props) {
     const [openNote, setOpenNote] = React.useState(false)
-    const [noteArray, setNoteArray] = React.useState([])
+    const [filterNoteArray, setFilterNoteArray] = React.useState([])
 
     const listenToTakeNoteOne = data => {
         if (data == true) {
@@ -18,68 +18,71 @@ function Dashboard(props) {
         } else {
             setOpenNote(false)
         }
-    }  
-    
+    }
+
     React.useEffect(() => {
-        getNotes().then((res)=> {
-            let filteredData = res.filter( data => data.isArchived == false && data.isDeleted == false )
-            setNoteArray(filteredData)
+        getUnarchiveUntrashNotes()
+    }, [])
+
+    const getTrashNotes = () => {
+        getNotes().then((res) => {
+            let filteredData = res.filter(data => data.isDeleted == true)
+            setFilterNoteArray(filteredData)
         }).catch((err) => {
             console.log(err)
         })
-    }, [])
+    }
+
+    const getArchiveNotes = () => {
+        getNotes().then((res) => {
+                let filteredData = res.filter( data => data.isArchived == true && data.isDeleted == false )
+            setFilterNoteArray(filteredData)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
+    const getUnarchiveUntrashNotes = () => {
+        getNotes().then((res) => {
+            let filteredData = res.filter(data => data.isArchived == false && data.isDeleted == false)
+            setFilterNoteArray(filteredData)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
 
     const listenToDrawer = (data) => {
-        if(data == "trash") {
-            getNotes().then((res)=> {
-                let filteredData = res.filter( data => data.isDeleted == true )
-                setNoteArray(filteredData)
-            }).catch((err) => {
-                console.log(err)
-            })
+        if (data == "trash") {
+            getTrashNotes()
         }
-        else if(data == "archive") {
-            getNotes().then((res)=> {
-                let filteredData = res.filter( data => data.isArchived == true && data.isDeleted == false )
-                setNoteArray(filteredData)
-            }).catch((err) => {
-                console.log(err)
-            })
+        else if (data == "archive") {
+            getArchiveNotes()
         }
         else if (data == "notes") {
-            getNotes().then((res)=> {
-                let filteredData = res.filter( data => data.isArchived == false && data.isDeleted == false )
-                setNoteArray(filteredData)
-            }).catch((err) => {
-                console.log(err)
-            })
+            getUnarchiveUntrashNotes()
         }
     }
 
-    return(
+    return (
         <div className="NoteContainer">
-            <div className="navbarComponent"> 
+            <div className="navbarComponent">
                 <Navbar />
             </div>
-
             <div className="sectionContainer">
-        
                 <div className="sidebarContainer">
                     <div className="sidebarContent">
                         <MiniDrawer listenToDrawer={listenToDrawer} />
                     </div>
                 </div>
-
                 <div className="sectionNoteContainer">
                     <div className={(props.noteType == "Archive" || props.noteType == "Bin") ? "hideTakeNote" : "navbarTakeNote"}>
                         {
-                            openNote == false ? <TakeNoteOne listenToTakeNoteOne= {listenToTakeNoteOne} /> : <TakeNoteTwo listenToTakeNoteOne= {listenToTakeNoteOne}/>
+                            openNote == false ? <TakeNoteOne listenToTakeNoteOne={listenToTakeNoteOne} /> : <TakeNoteTwo getTrashNotes={getTrashNotes} getArchiveNotes={getArchiveNotes} getUnarchiveUntrashNotes={getUnarchiveUntrashNotes} listenToTakeNoteOne={listenToTakeNoteOne} />
                         }
                     </div>
-
                     <div className="displayNoteContainer">
                         {
-                            noteArray.map((note)=> <ViewNote note={note} /> )
+                            filterNoteArray.map((note) => <ViewNote getTrashNotes={getTrashNotes} getArchiveNotes={getArchiveNotes} getUnarchiveUntrashNotes={getUnarchiveUntrashNotes} note={note} />)
                         }
                     </div>
                 </div>

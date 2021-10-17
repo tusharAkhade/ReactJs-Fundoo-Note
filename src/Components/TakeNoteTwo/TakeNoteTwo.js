@@ -3,21 +3,8 @@ import { ClickAwayListener, Popper } from '@material-ui/core'
 import './TakeNoteTwo_style.css'
 import Icons from '../Icons/Icons'
 import { makeStyles } from '@material-ui/core/styles';
-import { addNotes, getEmailMatch } from '../service/DataService'
+import { addNotes, getEmailMatch, getNotes } from '../service/DataService'
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
-
-// function TakeNoteTwo(props) {
-//     const handleClickAwayEvent = () => {
-//         props.listenToTakeNoteOne('tushar')
-//     }
-//     return (
-//         <ClickAwayListener onClickAway={handleClickAwayEvent}>
-//             <div className="takeNoteTwoContainer">
-//                 take note 2
-//             </div>
-//         </ClickAwayListener>
-//     )
-// }
 
 const action = {
     create: "CreateNote"
@@ -53,8 +40,6 @@ function TakeNoteTwo(props) {
     const [matchingUsers, setMatchingUsers] = useState([])
     const [allCollaberators, setallCollaberators] = useState([])
     const [reminder, setReminder] = useState('')
-    // let allCollaberators = []
-    // const [open, setOpen] = useState(true)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const classes = useStyles();
 
@@ -63,25 +48,19 @@ function TakeNoteTwo(props) {
         console.log(allCollaberators)
         console.log(JSON.stringify(allCollaberators))
         if (title != '') {
-        // if (title != '' || description != '' || allCollaberators.length >= 1) {
-            // let obj = {
-            //     title: title,
-            //     description: description,
-            //     isArchived: isArchived,
-            //     color: color,
-            // }
             const data = new FormData()
             data.append("title", title)
             data.append("description", description)
             data.append("color", color)
             data.append("isArchived", isArchived)
-            // data.append("collaberators", allCollaberators)
             data.append("collaberators", JSON.stringify(allCollaberators))
             data.append("reminder", reminder )
 
-            console.log(data)
-            addNotes(data).then(res => console.log(res))
-            // console.log(data)
+            addNotes(data)
+            .then(res => {
+                console.log(res)
+                props.getUnarchiveUntrashNotes()
+            })
         }
         props.listenToTakeNoteOne(false)
     }
@@ -98,12 +77,8 @@ function TakeNoteTwo(props) {
     }
 
     const archive = (data) => {
-        // setIsArchived(data)
-        // console.log(data)
         setIsArchived(data)
         console.log(isArchived)
-        // console.log(event.target)
-        // setIsArchived(!isArchived)
     }
 
     const getColor = (data) => {
@@ -112,10 +87,7 @@ function TakeNoteTwo(props) {
     }
 
     const getReminder = (data) => {
-        // console.log("reminder")
-        // console.log(data)
         setReminder(data)
-        // console.log(reminder)
     }
 
     const handleChangeInput = (event) => {
@@ -128,17 +100,10 @@ function TakeNoteTwo(props) {
             console.log(matchingInfo)
             let matchedInfo = matchingInfo.map(info => info)
             setMatchingUsers(matchedInfo)
-            // handleChangeCollabInput()
             setAnchorEl(event.target)
-            // console.log("matchedInfo : ", matchedInfo)
-            // console.log("setMatchingUsers : ", matchingUsers)
         })
 
     }
-
-    // const handleChangeCollabInput = () => {
-    //     console.log("popper will come")
-    // }
 
     const listenToCollaborator = (data) => {
         console.log(data)
@@ -151,17 +116,12 @@ function TakeNoteTwo(props) {
         let obj = matchingUsers.find((user)=> user.email == event.target.innerText)
         console.log(obj)
         allCollaberators.push(obj)
-        // allCollaberators.push(event.target.innerText)
-        // setallCollaberators(...allCollaberators, event.target.innerText)
         console.log(allCollaberators)
-        // setInput('')
-        // setopenCollab(false)
         setAnchorEl(null)
     }
 
     const handleClickCloseCollab = () => {
         setopenCollab(false)
-        // allCollaberators.splice(0, allCollaberators.length)
     }
 
     const handleClickSaveCollab = () => {
@@ -187,12 +147,7 @@ function TakeNoteTwo(props) {
                                         <div className="ownerEmail">tusharakhade10@gmail.com</div>
                                     </div>
                                 </div>
-                                <div className="collaboratorsInfo">
-                                    {/* <div className="singleCollaborator">
-                                        <div className="collaboratorImg">Person1</div>
-                                        <div className="collaboratorEmail">someone@gmail.com</div>
-                                    </div> */}
-                                    
+                                <div className="collaboratorsInfo">                                    
                                     {
                                         (allCollaberators.length >= 1) &&
                                         allCollaberators.map( obj => <div className="singleCollaborator">
@@ -241,7 +196,7 @@ function TakeNoteTwo(props) {
                                 }
                                 
                                 <div className="row3OfNote2">
-                                    <Icons name="TakeNoteTwo" type="removeDeleteIconFromNoteTwoIcons" listenToCollaborator={listenToCollaborator} actionType="CreateNote" getReminder={getReminder} getColor={getColor} archive={archive} close={handleClickAwayEvent} />
+                                    <Icons name="TakeNoteTwo" type="removeDeleteIconFromNoteTwoIcons" listenToCollaborator={listenToCollaborator} getUnarchiveUntrashNotes={props.getUnarchiveUntrashNotes} actionType="CreateNote" getReminder={getReminder} getColor={getColor} archive={archive} close={handleClickAwayEvent} />
                                 </div>
                             </div>
                         </div>
