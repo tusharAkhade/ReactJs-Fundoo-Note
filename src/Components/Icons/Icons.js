@@ -23,6 +23,18 @@ function Icons(props) {
         setValue(newValue);
     };
 
+    const updatePage = () => {
+        if(props.noteType == "Keep" || props.noteType == "Note") {
+            props.getUnarchiveUntrashNotes()
+        }
+        else if(props.noteType == "Archive") {
+            props.getArchiveNotes()
+        }
+        else if(props.noteType == "Bin") {
+            props.getTrashNotes()
+        }
+    }
+
     let handleArchiveClick = () => {
         if (props.name == "ViewNote") {
             props.archiveNote()
@@ -31,16 +43,19 @@ function Icons(props) {
             props.archive(true)
             console.log(props.name)
         }
+        updatePage()
     }
 
     let handleDeleteClick = () => {
         if (props.name == "ViewNote") {
             props.deletedNote()
         }
+        updatePage()
     }
 
     let handleRestoreClick = () => {
         props.restoreNote()
+        updatePage()
     }
 
     const listenToCollab = () => {
