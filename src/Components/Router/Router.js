@@ -5,6 +5,8 @@ import { BrowserRouter, BrowserRouter as Router, Route, Switch } from "react-rou
 import SignUp from '../SignUpPage/SignUpPage'
 import SignIn from '../LoginPage/LoginPage'
 import Dashboard from '../Dashboard/Dashboard'
+import ProtectedRoute from './ProtectedRoute';
+import AuthRoute from './AuthRoute';
 
 function RouterDom() {
     return (
@@ -13,8 +15,9 @@ function RouterDom() {
             <BrowserRouter >
                 <Switch>
                     <Route exact path='/' component={SignUp} />
-                    <Route path='/signin' component={SignIn} />
-                    <Route path='/dashboard' component={Dashboard} />
+                    <AuthRoute path='/signin' component={SignIn} />
+                    <ProtectedRoute path='/dashboard' component={Dashboard} />
+                    <Route path='*' component={() => <h1> 404 page not found </h1>} />
                 </Switch>
             </BrowserRouter>
             </Provider>

@@ -144,6 +144,36 @@
     opacity: 1;
 }
 
+.popperContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid rebeccapurple; */
+    width: 100%;
+    height: 100%;
+}
+
+.popperBtnContainer {
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.popperBtn {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    align-items: center;
+    border: 1px solid #DCDCDC;
+    border-radius: 3px;
+    width: 100px;
+    height: 40px;
+}
+
+.popperBtn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 @media screen and (max-width: 700px) {
     .fundoo-navbar-item2 {
         display: none;
