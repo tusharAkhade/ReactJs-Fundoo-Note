@@ -1,10 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Navbar_style.css'
-import {connect} from 'react-redux'
-
+import { connect } from 'react-redux'
+import { ClickAwayListener, Popper } from '@material-ui/core';
+import { useHistory } from 'react-router-dom'
 
 function Navbar(props) {
-    useEffect(()=> {
+    const history = useHistory()
+    const [anchorEl, setAnchorEl] = useState(null);
+    const handleProfileClick = (event) => {
+        setAnchorEl(anchorEl ? null : event.currentTarget);
+    }
+
+    const handleSignOutClick = () => {
+        localStorage.removeItem('fundooToken')
+        history.push('/signin')
+    }
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popper' : undefined;
+
+    useEffect(() => {
         console.log(props)
     }, [props])
     return (
@@ -17,7 +32,7 @@ function Navbar(props) {
                         </svg>
                     </div>
                     <div className="fundoo-navbar-item1-2">
-                        <img class="" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" style={{width:"40px", height:"40px"}}></img>
+                        <img class="" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" style={{ width: "40px", height: "40px" }}></img>
                         <span>{props.changeText}</span>
                     </div>
                 </div>
@@ -30,8 +45,8 @@ function Navbar(props) {
                         </svg>
                     </div>
                     <div className="fundoo-navbar-item2-2">
-                        <input className="fundoo-navbar-item2-2-input" type="text" placeholder="Search"/>
-                    </div>  
+                        <input className="fundoo-navbar-item2-2-input" type="text" placeholder="Search" />
+                    </div>
                 </div>
 
                 <div className="fundoo-navbar-item3">
@@ -39,13 +54,21 @@ function Navbar(props) {
                     <div className="fundoo-navbar-item3-icon" id="fundoo-navbar-item3-2"></div>
                     <div className="fundoo-navbar-item3-icon" id="fundoo-navbar-item3-3"></div>
                     <div className="fundoo-navbar-item4-icon" id="fundoo-navbar-item4-1">
-                        <svg class="gb_Ve" focusable="false"  viewBox="0 0 24 24">
+                        <svg class="gb_Ve" focusable="false" viewBox="0 0 24 24">
                             <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"></path>
                         </svg>
                     </div>
-                    <div className="fundoo-navbar-item4-icon" id="fundoo-navbar-item4-2"></div>
+                    <div className="fundoo-navbar-item4-icon" id="fundoo-navbar-item4-2" onClick={handleProfileClick}></div>
+                    <Popper click style={{ boxShadow: "1px 1px 5px grey", boxSizing: "border-box", backgroundColor: "#fff", border: "2px solid white", zIndex:"20", width: "200px", borderRadius: "3px", height: "100px" }} id={id} open={open} anchorEl={anchorEl}>
+                        <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
+                            <div className="popperContainer">
+                                <div className="popperBtnContainer" onClick={handleSignOutClick}>
+                                    <div className="popperBtn">Sign out</div>
+                                </div>
+                            </div>
+                        </ClickAwayListener>
+                    </Popper>
                 </div>
-
             </div>
         </React.Fragment>
     )
@@ -59,12 +82,6 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(Navbar)
-
-
-
-
-
-
 
 
 
