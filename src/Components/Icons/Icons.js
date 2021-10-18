@@ -10,6 +10,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import TimePicker from "@mui/lab/TimePicker";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { connect } from 'react-redux';
 
 function Icons(props) {
@@ -23,18 +24,6 @@ function Icons(props) {
         setValue(newValue);
     };
 
-    const updatePage = () => {
-        if(props.noteType == "Keep" || props.noteType == "Note") {
-            props.getUnarchiveUntrashNotes()
-        }
-        else if(props.noteType == "Archive") {
-            props.getArchiveNotes()
-        }
-        else if(props.noteType == "Bin") {
-            props.getTrashNotes()
-        }
-    }
-
     let handleArchiveClick = () => {
         if (props.name == "ViewNote") {
             props.archiveNote()
@@ -43,19 +32,20 @@ function Icons(props) {
             props.archive(true)
             console.log(props.name)
         }
-        updatePage()
     }
 
     let handleDeleteClick = () => {
         if (props.name == "ViewNote") {
             props.deletedNote()
         }
-        updatePage()
+    }
+
+    const handleDeleteForeverClick = () => {
+        props.deleteForeverNote()
     }
 
     let handleRestoreClick = () => {
         props.restoreNote()
-        updatePage()
     }
 
     const listenToCollab = () => {
@@ -109,11 +99,12 @@ function Icons(props) {
                     <div className="iconOfNote2" id={props.noteType == "Bin" ? "hideIcon" : "iconOfNote2-3"}> <ColorPopper className="iconOfNote2" getColor={props.getColor} /> </div>
                     <div className="iconOfNote2" id={props.noteType == "Bin" ? "hideIcon" : "iconOfNote2-4"}></div>
                     <div className="iconOfNote2" id={props.noteType == "Bin" ? "hideIcon" : "iconOfNote2-5"} onClick={handleArchiveClick} ></div>
-                    <div className="iconOfNote2" id={props.type == "removeDeleteIconFromNoteTwoIcons" ? "hideIcon" : "iconOfNote2-6"} onClick={handleDeleteClick} >
+                    <div className="iconOfNote2" id={(props.type == "removeDeleteIconFromNoteTwoIcons" || props.noteType == "Bin") ? "hideIcon" : "iconOfNote2-6"} onClick={handleDeleteClick} >
                         <DeleteOutlineOutlinedIcon />
                     </div>
                     <div className="iconOfNote2" id={props.type == "displayNotes" ? "iconOfDisplayNotes2-7" : "iconOfNote2-7"}></div>
                     <div className="iconOfNote2" id={props.type == "displayNotes" ? "iconOfDisplayNotes2-8" : "iconOfNote2-8"}></div>
+                    <div className="iconOfNote2" id={props.noteType == "Bin" ? "viewRestoreIcon" : "hideIcon"} onClick={handleDeleteForeverClick}> <DeleteForeverIcon /> </div>
                     <div className="iconOfNote2" id={props.noteType == "Bin" ? "viewRestoreIcon" : "hideIcon"} onClick={handleRestoreClick}> <RestoreFromTrashIcon /> </div>
                 </div>
                 <div className="closeBtnContainer">
