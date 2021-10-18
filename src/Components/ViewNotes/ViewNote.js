@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
-import { addArchiveNotes, deleteRestoreNotes, updateNoteColor, updateNotes } from '../service/DataService';
+import { addArchiveNotes, deleteForever, restoreDeletedNotes, updateNoteColor, updateNotes } from '../service/DataService';
 import Chip from '@mui/material/Chip';
 
 function ViewNote(props) {
@@ -70,7 +70,7 @@ function ViewNote(props) {
             noteIdList: [note.id],
             isDeleted: true,
         }
-        deleteRestoreNotes(obj)
+        restoreDeletedNotes(obj)
     }
 
     let restoreNote = () => {
@@ -78,7 +78,15 @@ function ViewNote(props) {
             noteIdList: [note.id],
             isDeleted: false,
         }
-        deleteRestoreNotes(obj)
+        restoreDeletedNotes(obj)
+    }
+
+    const deleteForeverNote = () => {
+        let obj = {
+            noteIdList: [note.id],
+            isDeleted: true,
+        }
+        deleteForever(obj)
     }
 
     return (
@@ -101,7 +109,7 @@ function ViewNote(props) {
                     </div>
                 }
                 <div className="noteIcon">
-                    <Icons name="ViewNote" actionType="UpdateNote" type="displayNotes" getTrashNotes={props.getTrashNotes} getArchiveNotes={props.getArchiveNotes} getUnarchiveUntrashNotes={props.getUnarchiveUntrashNotes} getColor={changeColor} restoreNote={restoreNote} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
+                    <Icons name="ViewNote" actionType="UpdateNote" type="displayNotes" deleteForeverNote={deleteForeverNote} getTrashNotes={props.getTrashNotes} getArchiveNotes={props.getArchiveNotes} getUnarchiveUntrashNotes={props.getUnarchiveUntrashNotes} getColor={changeColor} restoreNote={restoreNote} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
                 </div>
             </div>
             <div>
@@ -120,7 +128,7 @@ function ViewNote(props) {
                     </DialogContent>
                     <DialogActions style={{ backgroundColor: note.color }}>
                         <div className="row3OfNote2">
-                            <Icons name="ViewNote" actionType="UpdateNote" type="displayNote" getTrashNotes={props.getTrashNotes} getArchiveNotes={props.getArchiveNotes} getUnarchiveUntrashNotes={props.getUnarchiveUntrashNotes} getColor={changeColor} restoreNote={restoreNote} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
+                            <Icons name="ViewNote" actionType="UpdateNote" type="displayNote" deleteForeverNote={deleteForeverNote} getTrashNotes={props.getTrashNotes} getArchiveNotes={props.getArchiveNotes} getUnarchiveUntrashNotes={props.getUnarchiveUntrashNotes} getColor={changeColor} restoreNote={restoreNote} deletedNote={deletedNote} archiveNote={archiveNote} close={handleCloseBtnEvent} />
                         </div>
                     </DialogActions>
                 </Dialog>

@@ -21,8 +21,16 @@ function Dashboard(props) {
     }
 
     React.useEffect(() => {
-        getUnarchiveUntrashNotes()
-    }, [])
+        if(props.noteType == "Keep" || props.noteType == "Note") {
+            getUnarchiveUntrashNotes()
+        }
+        else if(props.noteType == "Archive") {
+            getArchiveNotes()
+        }
+        else if(props.noteType == "Bin") {
+            getTrashNotes()
+        }
+    }, [filterNoteArray])
 
     const getTrashNotes = () => {
         getNotes().then((res) => {
