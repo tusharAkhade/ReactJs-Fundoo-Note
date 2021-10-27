@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -68,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function SimplePopper(props) {
+function SimplePopper(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -88,9 +89,9 @@ export default function SimplePopper(props) {
         event.target.className = `${classes.colorItem}`
     }
 
-    const colorClockHandler = (e) => {
+    const colorClickHandler = (e) => {
+        props.dispatch({ type: "UPDATE_NOTE" })
         props.getColor(e.target.id)
-        console.log(e.target.id) 
     } 
 
   const open = Boolean(anchorEl);
@@ -106,10 +107,12 @@ export default function SimplePopper(props) {
         <Popper id={id} open={open} placement="top" anchorEl={anchorEl}>
             <div className={classes.colorContainer} >
                 {
-                    colors.map((color) => <div onClick={colorClockHandler} id={color} style={{backgroundColor:`${color}`}} className={classes.colorItem} onMouseOut={handleMouseOutColor} onMouseOver={handleMouseOverColor} /> )
+                    colors.map((color) => <div onClick={colorClickHandler} id={color} style={{backgroundColor:`${color}`}} className={classes.colorItem} onMouseOut={handleMouseOutColor} onMouseOver={handleMouseOverColor} /> )
                 }
             </div>
         </Popper>
     </div>
   );
 }
+
+export default connect()(SimplePopper)

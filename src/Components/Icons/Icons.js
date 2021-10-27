@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Icons_style.css'
 import ColorPopper from '../ColorPopper'
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
@@ -25,6 +25,7 @@ function Icons(props) {
     };
 
     let handleArchiveClick = () => {
+        props.dispatch({ type: "UPDATE_NOTE" })
         if (props.name == "ViewNote") {
             props.archiveNote()
         }
@@ -35,16 +36,19 @@ function Icons(props) {
     }
 
     let handleDeleteClick = () => {
+        props.dispatch({ type: "UPDATE_NOTE"})
         if (props.name == "ViewNote") {
             props.deletedNote()
         }
     }
 
     const handleDeleteForeverClick = () => {
+        props.dispatch({ type: "UPDATE_NOTE"})
         props.deleteForeverNote()
     }
 
     let handleRestoreClick = () => {
+        props.dispatch({ type: "UPDATE_NOTE"})
         props.restoreNote()
     }
 
@@ -62,6 +66,7 @@ function Icons(props) {
     }
 
     const handleReminderSaveClick = (event) => {
+        props.dispatch({ type: "UPDATE_NOTE"})
         if (props.name == "TakeNoteTwo") {
             props.getReminder(`${value.toDateString()}, ${value.getHours()}:${value.getMinutes()}`)
             setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -117,7 +122,7 @@ function Icons(props) {
 
 const mapStateToProps = (state) => {
     return {
-        noteType: state.clicked
+        noteType: state.navReducer.clicked
     }
 }
 

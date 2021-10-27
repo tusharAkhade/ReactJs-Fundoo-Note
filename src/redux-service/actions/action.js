@@ -15,3 +15,10 @@ export const changeTextToBin = () => {
         type: "CLICK_ON_BIN",
     }
 }
+
+export const updateDate = () => {
+    return {
+        type: "UPDATE_NOTE"
+    }
+}
+
