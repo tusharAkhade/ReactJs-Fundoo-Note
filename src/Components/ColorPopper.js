@@ -35,8 +35,6 @@ const useStyles = makeStyles((theme) => ({
     },    
     colorContainer: {
         width: `150px`,
-        border: "1px solid",
-        border: '1px solid',
         padding: theme.spacing(1),
         backgroundColor: theme.palette.background.paper,
         display: "flex",
@@ -107,7 +105,7 @@ function SimplePopper(props) {
         <Popper id={id} open={open} placement="top" anchorEl={anchorEl}>
             <div className={classes.colorContainer} >
                 {
-                    colors.map((color) => <div onClick={colorClickHandler} id={color} style={{backgroundColor:`${color}`}} className={classes.colorItem} onMouseOut={handleMouseOutColor} onMouseOver={handleMouseOverColor} /> )
+                    colors.map((color) => <div key={color} onClick={colorClickHandler} id={color} style={{backgroundColor:`${color}`}} className={classes.colorItem} onMouseOut={handleMouseOutColor} onMouseOver={handleMouseOverColor} /> )
                 }
             </div>
         </Popper>

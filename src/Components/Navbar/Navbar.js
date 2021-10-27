@@ -19,9 +19,6 @@ function Navbar(props) {
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popper' : undefined;
 
-    useEffect(() => {
-        console.log(props)
-    }, [props])
     return (
         <React.Fragment>
             <div className="fundoo-navbar-container">
@@ -32,7 +29,7 @@ function Navbar(props) {
                         </svg>
                     </div>
                     <div className="fundoo-navbar-item1-2">
-                        <img src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" srcSet="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" style={{ width: "40px", height: "40px" }}></img>
+                        <img srcSet="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" style={{ width: "40px", height: "40px" }}></img>
                         <span>{props.changeText}</span>
                     </div>
                 </div>
@@ -54,7 +51,7 @@ function Navbar(props) {
                     <div className="fundoo-navbar-item3-icon" id="fundoo-navbar-item3-2"></div>
                     <div className="fundoo-navbar-item3-icon" id="fundoo-navbar-item3-3"></div>
                     <div className="fundoo-navbar-item4-icon" id="fundoo-navbar-item4-1">
-                        <svg class="gb_Ve" focusable="false" viewBox="0 0 24 24">
+                        <svg className="gb_Ve" focusable="false" viewBox="0 0 24 24">
                             <path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"></path>
                         </svg>
                     </div>
@@ -75,7 +72,7 @@ function Navbar(props) {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
+    // console.log(state)
     return {
         changeText: state.navReducer.clicked
     }

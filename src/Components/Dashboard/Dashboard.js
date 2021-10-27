@@ -1,4 +1,4 @@
-import React ,{ useState, useEffect, useRef} from 'react'
+import React ,{ useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import MiniDrawer from '../Drawer'
 import Navbar from '../Navbar/Navbar'
@@ -13,7 +13,7 @@ function Dashboard(props) {
     const [filterNoteArray, setFilterNoteArray] = useState([])
 
     const listenToTakeNoteOne = data => {
-        if (data == true) {
+        if (data === true) {
             setOpenNote(true)
         } else {
             setOpenNote(false)
@@ -21,42 +21,41 @@ function Dashboard(props) {
     }
 
     useEffect(() => {
-        console.log(props)
-        if (props.noteType == "Keep" || props.noteType == "Note") {
+        if (props.noteType === "Keep" || props.noteType === "Note") {
             getUnarchiveUntrashNotes()
         }
-        else if (props.noteType == "Archive") {
+        else if (props.noteType === "Archive") {
             getArchiveNotes()
         }
-        else if (props.noteType == "Bin") {
+        else if (props.noteType === "Bin") {
             getTrashNotes()
         }
     }, [props.noteType, props.updateNote])
 
     const getTrashNotes = () => {
         getNotes().then((res) => {
-            let filteredData = res.filter(data => data.isDeleted == true)
+            let filteredData = res.filter(data => data.isDeleted === true)
             setFilterNoteArray(filteredData)
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
     }
 
     const getArchiveNotes = () => {
         getNotes().then((res) => {
-            let filteredData = res.filter(data => data.isArchived == true && data.isDeleted == false)
+            let filteredData = res.filter(data => data.isArchived === true && data.isDeleted === false)
             setFilterNoteArray(filteredData)
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
     }
 
     const getUnarchiveUntrashNotes = () => {
         getNotes().then((res) => {
-            let filteredData = res.filter(data => data.isArchived == false && data.isDeleted == false)
+            let filteredData = res.filter(data => data.isArchived === false && data.isDeleted === false)
             setFilterNoteArray(filteredData)
         }).catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -72,14 +71,14 @@ function Dashboard(props) {
                     </div>
                 </div>
                 <div className="sectionNoteContainer">
-                    <div className={(props.noteType == "Archive" || props.noteType == "Bin") ? "hideTakeNote" : "navbarTakeNote"}>
+                    <div className={(props.noteType === "Archive" || props.noteType === "Bin") ? "hideTakeNote" : "navbarTakeNote"}>
                         {
-                            openNote == false ? <TakeNoteOne listenToTakeNoteOne={listenToTakeNoteOne} /> : <TakeNoteTwo getTrashNotes={getTrashNotes} getArchiveNotes={getArchiveNotes} getUnarchiveUntrashNotes={getUnarchiveUntrashNotes} listenToTakeNoteOne={listenToTakeNoteOne} />
+                            openNote === false ? <TakeNoteOne listenToTakeNoteOne={listenToTakeNoteOne} /> : <TakeNoteTwo getTrashNotes={getTrashNotes} getArchiveNotes={getArchiveNotes} getUnarchiveUntrashNotes={getUnarchiveUntrashNotes} listenToTakeNoteOne={listenToTakeNoteOne} />
                         }
                     </div>
                     <div className="displayNoteContainer">
                         {
-                            filterNoteArray.map((note) => <ViewNote getTrashNotes={getTrashNotes} getArchiveNotes={getArchiveNotes} getUnarchiveUntrashNotes={getUnarchiveUntrashNotes} note={note} />)
+                            filterNoteArray.map((note) => <ViewNote key={note.id} getTrashNotes={getTrashNotes} getArchiveNotes={getArchiveNotes} getUnarchiveUntrashNotes={getUnarchiveUntrashNotes} note={note} />)
                         }
                     </div>
                 </div>
@@ -89,7 +88,6 @@ function Dashboard(props) {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         noteType: state.navReducer.clicked,
         updateNote: state.updateNoteReducer

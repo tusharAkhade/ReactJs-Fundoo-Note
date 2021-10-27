@@ -18,8 +18,6 @@ function ViewNote(props) {
     const [color, setColor] = useState('#fff')
 
     const handleNoteClick = () => {
-        console.log("Click on note");
-        console.log(note.id)
         setOpen(true)
     }
 
@@ -29,7 +27,7 @@ function ViewNote(props) {
             title: title,
             description: description,
         }
-        if (title != '' || description != '') {
+        if (title !== '' || description !== '') {
             updateNotes(obj)
         }
         setOpen(false)
@@ -37,18 +35,14 @@ function ViewNote(props) {
 
     const takeTitle = (event) => {
         setTitle(event.target.value)
-        console.log(title)
     }
 
     const takeDescription = (event) => {
         setDescription(event.target.innerText)
-        console.log(description)
     }
 
     const changeColor = (data) => {
-        console.log(data)
         setColor(data)
-        console.log(color)
         let obj = {
             noteIdList: [note.id],
             color: data,
@@ -61,11 +55,10 @@ function ViewNote(props) {
             noteIdList: [note.id],
             isArchived: !note.isArchived,
         }
-        addArchiveNotes(obj).then((res) => console.log(res))
+        addArchiveNotes(obj)
     }
 
     let deletedNote = () => {
-        console.log(note.isDeleted)
         let obj = {
             noteIdList: [note.id],
             isDeleted: true,

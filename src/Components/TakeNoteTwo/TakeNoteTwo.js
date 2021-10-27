@@ -3,7 +3,7 @@ import { ClickAwayListener, Popper } from '@material-ui/core'
 import './TakeNoteTwo_style.css'
 import Icons from '../Icons/Icons'
 import { makeStyles } from '@material-ui/core/styles';
-import { addNotes, getEmailMatch, getNotes } from '../service/DataService'
+import { addNotes, getEmailMatch } from '../service/DataService'
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
 
 const action = {
@@ -45,9 +45,7 @@ function TakeNoteTwo(props) {
 
 
     const handleClickAwayEvent = () => {
-        console.log(allCollaberators)
-        console.log(JSON.stringify(allCollaberators))
-        if (title != '') {
+        if (title !== '') {
             const data = new FormData()
             data.append("title", title)
             data.append("description", description)
@@ -58,7 +56,6 @@ function TakeNoteTwo(props) {
 
             addNotes(data)
             .then(res => {
-                console.log(res)
                 props.getUnarchiveUntrashNotes()
             })
         }
@@ -67,22 +64,17 @@ function TakeNoteTwo(props) {
 
     const takeTitle = (event) => {
         setTitle(event.target.value)
-        console.log(event.target.value)
     }
 
     const takeDescription = (event) => {
         setDescription(event.target.innerText)
-        console.log(event.target.innerText)
-        console.log(event.target)
     }
 
     const archive = (data) => {
         setIsArchived(data)
-        console.log(isArchived)
     }
 
     const getColor = (data) => {
-        console.log(data)
         setColor(data)
     }
 
@@ -92,12 +84,10 @@ function TakeNoteTwo(props) {
 
     const handleChangeInput = (event) => {
         setInput(event.target.value)
-        console.log(input)
         let obj = {
             searchWord: input
         }
         getEmailMatch(obj).then(matchingInfo => {
-            console.log(matchingInfo)
             let matchedInfo = matchingInfo.map(info => info)
             setMatchingUsers(matchedInfo)
             setAnchorEl(event.target)
@@ -106,17 +96,12 @@ function TakeNoteTwo(props) {
     }
 
     const listenToCollaborator = (data) => {
-        console.log(data)
         setopenCollab(data)
-        console.log(openCollab)
     }
 
     const handleCollabSelectClick = (event) => {
-        console.log(event.target.innerText)
-        let obj = matchingUsers.find((user)=> user.email == event.target.innerText)
-        console.log(obj)
+        let obj = matchingUsers.find((user)=> user.email === event.target.innerText)
         allCollaberators.push(obj)
-        console.log(allCollaberators)
         setAnchorEl(null)
     }
 
@@ -125,7 +110,6 @@ function TakeNoteTwo(props) {
     }
 
     const handleClickSaveCollab = () => {
-        console.log("hello")
         setopenCollab(false)
     }
 

@@ -16,7 +16,6 @@ let configObjForaddNotes = {
 
 export const addNotes = async (obj) => {
     let response = await axios.post( 'http://fundoonotes.incubation.bridgelabz.com/api/notes/addNotes', obj, configObjForaddNotes )
-    console.log(response)
     return response
 }
 
@@ -27,35 +26,32 @@ export const getNotes = async () => {
 }
 
 export const updateNotes = async (obj) => {
-    console.log(obj)
     let response = await axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/updateNotes', obj, config)
-    console.log(response)
 }
 
 
 export const addArchiveNotes = async (obj) => {
     let response = await axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/archiveNotes', obj, config)
-    console.log(response)
     return response
 }
 
 export const restoreDeletedNotes = async (obj) => {
     let response = await axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/trashNotes', obj, config)
+    return response
 }
 
 export const updateNoteColor = async (obj) => {
     let response = await axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/changesColorNotes', obj, config)
+    return response
 }
 
 export const getEmailMatch = async (obj) => {
     let response = await axios.post('http://fundoonotes.incubation.bridgelabz.com/api/user/searchUserList', obj, config)
-    console.log(response)
     return response.data.data.details
 }
 
 export const deleteForever = async (obj) => {
     let response = await axios.post('http://fundoonotes.incubation.bridgelabz.com/api/notes/deleteForeverNotes', obj, config)
-    console.log(response)
     return response
 }
 
