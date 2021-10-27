@@ -11,3 +11,12 @@ export default function navReducer(state=initialState, action) {
             return state
     }
 }
+
+export function updateNoteReducer(state=false, action) {
+    switch(action.type) {
+        case "UPDATE_NOTE":
+            return !state
+        default:
+            return state
+    }
+}

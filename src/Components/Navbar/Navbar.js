@@ -32,7 +32,7 @@ function Navbar(props) {
                         </svg>
                     </div>
                     <div className="fundoo-navbar-item1-2">
-                        <img class="" src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" style={{ width: "40px", height: "40px" }}></img>
+                        <img src="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png" srcSet="https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/keep_2020q4_48dp.png 2x " alt="" aria-hidden="true" style={{ width: "40px", height: "40px" }}></img>
                         <span>{props.changeText}</span>
                     </div>
                 </div>
@@ -75,9 +75,9 @@ function Navbar(props) {
 }
 
 const mapStateToProps = state => {
-    // console.log(state)
+    console.log(state)
     return {
-        changeText: state.clicked
+        changeText: state.navReducer.clicked
     }
 }
 

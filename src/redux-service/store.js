@@ -1,14 +1,12 @@
 import {createStore} from 'redux'
-import navReducer from './reducers/reducer'
+import navReducer, {updateNoteReducer} from './reducers/reducer'
+import {combineReducers} from 'redux'
 
-const store = createStore(navReducer)
+const mainReducer = combineReducers({
+    navReducer,
+    updateNoteReducer
+})
+
+const store = createStore(mainReducer)
 
 export default store
-
-
-
-
-
-
-
-
