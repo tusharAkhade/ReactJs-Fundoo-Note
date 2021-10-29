@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         overflowY: "scroll",
         overflowX: "scroll",
         maxHeight: "200px",
-        "&::-webkit-scrollbar" : {
+        "&::-webkit-scrollbar": {
             display: "none",
         },
     }
@@ -52,12 +52,12 @@ function TakeNoteTwo(props) {
             data.append("color", color)
             data.append("isArchived", isArchived)
             data.append("collaberators", JSON.stringify(allCollaberators))
-            data.append("reminder", reminder )
+            data.append("reminder", reminder)
 
             addNotes(data)
-            .then(res => {
-                props.getUnarchiveUntrashNotes()
-            })
+                .then(res => {
+                    props.getUnarchiveUntrashNotes()
+                })
         }
         props.listenToTakeNoteOne(false)
     }
@@ -100,7 +100,7 @@ function TakeNoteTwo(props) {
     }
 
     const handleCollabSelectClick = (event) => {
-        let obj = matchingUsers.find((user)=> user.email === event.target.innerText)
+        let obj = matchingUsers.find((user) => user.email === event.target.innerText)
         allCollaberators.push(obj)
         setAnchorEl(null)
     }
@@ -119,72 +119,78 @@ function TakeNoteTwo(props) {
     return (
         <ClickAwayListener onClickAway={handleClickAwayEvent}>
 
-                {
-                    openCollab ?
-                        <div className="takeNoteTwoCollabContainer">
-                            <div className="takeNoteTwoContainer">
-                                <div className="collaboratorHeading">Collaborators <hr /> </div>
-                                <div className="ownerInfo">
-                                    <div className="ownerImg"></div>
-                                    <div className="ownerNameAndEmail">
-                                        <div className="ownerName">Tushar Akhade <span>(Owner)</span> </div>
-                                        <div className="ownerEmail">tusharakhade10@gmail.com</div>
-                                    </div>
+            {
+                openCollab ?
+                    <div className="takeNoteTwoCollabContainer">
+                        <div className="takeNoteTwoContainer">
+                            <div className="collaboratorHeading">Collaborators <hr /> </div>
+                            <div className="ownerInfo">
+                                <div className="ownerImg"></div>
+                                <div className="ownerNameAndEmail">
+                                    <div className="ownerName">Tushar Akhade <span>(Owner)</span> </div>
+                                    <div className="ownerEmail">tusharakhade10@gmail.com</div>
                                 </div>
-                                <div className="collaboratorsInfo">                                    
-                                    {
-                                        (allCollaberators.length >= 1) &&
-                                        allCollaberators.map( obj => <div className="singleCollaborator">
+                            </div>
+                            <div className="collaboratorsInfo">
+                                {
+                                    (allCollaberators.length >= 1) &&
+                                    allCollaberators.map(obj => <div className="singleCollaborator">
                                         <div className="collaboratorImg addedCollabImage"></div>
                                         <div className="collaboratorEmail"> {obj.email} </div>
-                                        </div> )
-                                    }
-                                    <div className="addCollaborator">
-                                        <div className="collaboratorImg"></div>
-                                        <input className="collaboratorEmail" onChange={handleChangeInput} placeholder="Person or email to share with" />
-                                    
-                                        <Popper id={id} open={open} placement="bottom-start" transition anchorEl={anchorEl}>
-                                            <div className={classes.PopperContainer}>
-                                                {
-                                                    matchingUsers.map( info => <div onClick={handleCollabSelectClick} style={{borderBottom:"1px solid black", padding: "5px", backgroundColor: "white", cursor:"default",}}> {info.email} </div> )
-                                                }
-                                            </div>
-                                        </Popper>
-                                        
-                                    </div>
-                                </div>
+                                    </div>)
+                                }
+                                <div className="addCollaborator">
+                                    <div className="collaboratorImg"></div>
+                                    <input className="collaboratorEmail" onChange={handleChangeInput} placeholder="Person or email to share with" />
 
-                                <div className="collabButtons">
-                                    <div className="closeBtn" onClick={handleClickCloseCollab}>Close</div>
-                                    <div className="saveBtn" onClick={handleClickSaveCollab}>Save</div>
+                                    <Popper id={id} open={open} placement="bottom-start" transition anchorEl={anchorEl}>
+                                        <div className={classes.PopperContainer}>
+                                            {
+                                                matchingUsers.map(info => <div onClick={handleCollabSelectClick} style={{ borderBottom: "1px solid black", padding: "5px", backgroundColor: "white", cursor: "default", }}> {info.email} </div>)
+                                            }
+                                        </div>
+                                    </Popper>
+
                                 </div>
                             </div>
+                            <div className="collabButtons">
+                                <div className="closeBtn" onClick={handleClickCloseCollab}>Close</div>
+                                <div className="saveBtn" onClick={handleClickSaveCollab}>Save</div>
+                            </div>
                         </div>
+                    </div>
 
-                        :
+                    :
 
-                        <div className="takeNoteTwoMainContainer" >
-                            <div className="takeNoteTwoContainer" style={{ backgroundColor: color }}>
-                                <input className="row1OfNote2" placeholder="Title" type="text" onChange={takeTitle} />
-                                <div role="textbox" className="row2OfNote2" data-placeholder="Take a note..." contenteditable="true" onInput={takeDescription}></div>
+                    <div className="takeNoteTwoMainContainer" >
+                        <div className="takeNoteTwoContainer" style={{ backgroundColor: color }}>
+                            <input className="row1OfNote2" placeholder="Title" type="text" onChange={takeTitle} />
+                            <div role="textbox" className="row2OfNote2" data-placeholder="Take a note..." contenteditable="true" onInput={takeDescription}></div>
+                            <div className="collabImageOnNote2Container">
                                 {
-                                    (allCollaberators.length >= 1 || reminder.length >= 1 ) && 
-                                    <div className="collabImageOnNote2Container">
-                                    {
-                                        allCollaberators.map(() => <div style={{cursor:"pointer"}} className="collabImageOnNote2"></div>)
-                                    }
-                                    {
-                                        <div className="takeNoteTwoReminder"> <ScheduleOutlinedIcon /> {reminder}</div>
-                                    }
+                                    (allCollaberators.length >= 1) &&
+                                    <div>
+                                        {
+                                            allCollaberators.map(() => <div style={{ cursor: "pointer" }} className="collabImageOnNote2"></div>)
+                                        }
+                                    </div>
+
+                                }
+                                {
+                                    (reminder.length >= 1) &&
+                                    <div>
+                                        {
+                                            <div className="takeNoteTwoReminder"> <ScheduleOutlinedIcon /> {reminder}</div>
+                                        }
                                     </div>
                                 }
-                                
-                                <div className="row3OfNote2">
-                                    <Icons name="TakeNoteTwo" type="removeDeleteIconFromNoteTwoIcons" listenToCollaborator={listenToCollaborator} getUnarchiveUntrashNotes={props.getUnarchiveUntrashNotes} actionType="CreateNote" getReminder={getReminder} getColor={getColor} archive={archive} close={handleClickAwayEvent} />
-                                </div>
+                            </div>
+                            <div className="row3OfNote2">
+                                <Icons name="TakeNoteTwo" type="removeDeleteIconFromNoteTwoIcons" listenToCollaborator={listenToCollaborator} getUnarchiveUntrashNotes={props.getUnarchiveUntrashNotes} actionType="CreateNote" getReminder={getReminder} getColor={getColor} archive={archive} close={handleClickAwayEvent} />
                             </div>
                         </div>
-                }
+                    </div>
+            }
 
         </ClickAwayListener>
     )

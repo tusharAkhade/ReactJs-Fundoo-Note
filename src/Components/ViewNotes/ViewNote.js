@@ -9,9 +9,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
 import { addArchiveNotes, deleteForever, restoreDeletedNotes, updateNoteColor, updateNotes } from '../service/DataService';
 import Chip from '@mui/material/Chip';
+import moment from 'moment';
 
 function ViewNote(props) {
-    const {note} = props
+    const { note } = props
     const [open, setOpen] = useState(false)
     const [title, setTitle] = useState(note.title)
     const [description, setDescription] = useState(note.description)
@@ -90,15 +91,14 @@ function ViewNote(props) {
                     <div className="noteDescContainer"> {note.description} </div>
                 </div>
                 {
-                    (note.collaborators.length >= 1 || note.reminder.length >= 1 ) &&
-                    <div className="collabImageOnNote2Container" style={{cursor:"default", display:"flex", flexWrap:"wrap"}}>
-                    {
-                        note.collaborators.map(() => <div style={{cursor:"pointer"}} className="collabImageOnNote2"></div>)
-                    }
-
-                    {
-                        note.reminder.map((date)=><div className="viewReminder"> <Chip style={{width:"100%", fontWeight: "bold",}} icon={<ScheduleOutlinedIcon />} label={date} /> </div>)
-                    }
+                    (note.collaborators.length >= 1 || note.reminder.length >= 1) &&
+                    <div className="collabImageOnNote2Container" style={{ cursor: "default", display: "flex", flexWrap: "wrap", }}>
+                        {
+                            note.collaborators.map(() => <div style={{ cursor: "pointer", }} className="collabImageOnNote2"></div>)
+                        }
+                        {
+                            note.reminder.map((date) => <div> <Chip style={{ fontWeight: "bold", fontSize: "11px", }} icon={<ScheduleOutlinedIcon />} label={moment(date).utc().format('lll')} /> </div>)
+                        }
                     </div>
                 }
                 <div className="noteIcon">
