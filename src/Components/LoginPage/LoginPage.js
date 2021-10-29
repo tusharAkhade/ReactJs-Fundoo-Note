@@ -31,10 +31,6 @@ class SignIn extends Component {
     })
   }
 
-  componentDidMount() {
-    console.log(this.props)
-  }
-
   takePassword = event => {
     this.setState({
       password: event.target.value
@@ -55,7 +51,7 @@ class SignIn extends Component {
     let emailCheck = emailRegex.test(this.state.email)
     let passwordCheck = passwordRegEx.test(this.state.password)
 
-    if (emailCheck == true) {
+    if (emailCheck === true) {
       this.setState({
         errorEmail: false,
         helperTextEmail: ''
@@ -67,7 +63,7 @@ class SignIn extends Component {
       })
     }
 
-    if (passwordCheck == true) {
+    if (passwordCheck === true) {
       this.setState({
         errorPassword: false,
         helperTextPassword: ''
@@ -80,15 +76,13 @@ class SignIn extends Component {
     }
 
 
-    if (emailCheck == true && passwordCheck == true) {
+    if (emailCheck === true && passwordCheck === true) {
       let obj = {
         email: this.state.email,
         password: this.state.password
       }
-      console.log(obj)
       logIn(obj).then((res) => {
-        console.log(res.status)
-        if (res.status == 200) {
+        if (res.status === 200) {
           this.props.history.push("/dashboard")
         }
       })

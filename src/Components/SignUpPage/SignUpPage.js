@@ -83,7 +83,7 @@ class SignUp extends Component {
         let emailCheck = emailRegex.test(this.state.email)
         let passwordCheck = passwordRegEx.test(this.state.password)
 
-        if (firstNameCheck == true) {
+        if (firstNameCheck === true) {
             this.setState({
                 errorFirstName: false,
                 helperTextFirstName: ''
@@ -95,7 +95,7 @@ class SignUp extends Component {
             })
         }
 
-        if (lastNameCheck == true) {
+        if (lastNameCheck === true) {
             this.setState({
                 errorLastName: false,
                 helperTextLastName: ''
@@ -107,7 +107,7 @@ class SignUp extends Component {
             })
         }
 
-        if (emailCheck == true) {
+        if (emailCheck === true) {
             this.setState({
                 errorEmail: false,
                 helperTextEmail: ''
@@ -119,7 +119,7 @@ class SignUp extends Component {
             })
         }
 
-        if (passwordCheck == true) {
+        if (passwordCheck === true) {
             this.setState({
                 errorPassword: false,
                 helperTextPassword: ''
@@ -131,19 +131,19 @@ class SignUp extends Component {
             })
         }
 
-        if (this.state.password == this.state.confirmPassword && this.state.confirmPassword != '') {
+        if (this.state.password === this.state.confirmPassword && this.state.confirmPassword !== '') {
             this.setState({
                 errorConfirmPassword: false,
                 helperTextConfirmPassword: ''
             })
-        } else if (this.state.password != '') {
+        } else if (this.state.password !== '') {
             this.setState({
                 errorConfirmPassword: true,
                 helperTextConfirmPassword: 'Password not match'
             })
         }
 
-        if (firstNameCheck == true && lastNameCheck == true && emailCheck == true && passwordCheck == true) {
+        if (firstNameCheck === true && lastNameCheck === true && emailCheck === true && passwordCheck === true) {
             let obj = {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
@@ -152,8 +152,7 @@ class SignUp extends Component {
                 password: this.state.password
             }
             signup(obj).then((res) => {
-                console.log(res.status)
-                if (res.status == 200) {
+                if (res.status === 200) {
                     this.props.history.push("/signin")
                 }
             })

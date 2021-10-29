@@ -115,7 +115,7 @@
         width: 100%;
         display: flex;
         /* border: 1px solid; */
-        justify-content: end;
+        justify-content: flex-end;
     }
 
     .closeButtonIconOfNote2 {

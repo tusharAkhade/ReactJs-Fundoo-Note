@@ -39,6 +39,7 @@
 }
 
 .row2OfNote2 {
+    display: flex;
     font-size: 18px;
     padding: 0 10px;
     margin: 5px 0;
@@ -57,6 +58,7 @@
 }
 
 .collabImageOnNote2Container {
+    align-items: center;
     min-height: 43px;
     min-width: none;
     max-width: 100%;

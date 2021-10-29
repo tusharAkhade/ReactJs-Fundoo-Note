@@ -9,17 +9,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
 import { addArchiveNotes, deleteForever, restoreDeletedNotes, updateNoteColor, updateNotes } from '../service/DataService';
 import Chip from '@mui/material/Chip';
+import moment from 'moment';
 
 function ViewNote(props) {
-    const {note} = props
+    const { note } = props
     const [open, setOpen] = useState(false)
     const [title, setTitle] = useState(note.title)
     const [description, setDescription] = useState(note.description)
     const [color, setColor] = useState('#fff')
 
     const handleNoteClick = () => {
-        console.log("Click on note");
-        console.log(note.id)
         setOpen(true)
     }
 
@@ -29,7 +28,7 @@ function ViewNote(props) {
             title: title,
             description: description,
         }
-        if (title != '' || description != '') {
+        if (title !== '' || description !== '') {
             updateNotes(obj)
         }
         setOpen(false)
@@ -37,18 +36,14 @@ function ViewNote(props) {
 
     const takeTitle = (event) => {
         setTitle(event.target.value)
-        console.log(title)
     }
 
     const takeDescription = (event) => {
         setDescription(event.target.innerText)
-        console.log(description)
     }
 
     const changeColor = (data) => {
-        console.log(data)
         setColor(data)
-        console.log(color)
         let obj = {
             noteIdList: [note.id],
             color: data,
@@ -61,11 +56,10 @@ function ViewNote(props) {
             noteIdList: [note.id],
             isArchived: !note.isArchived,
         }
-        addArchiveNotes(obj).then((res) => console.log(res))
+        addArchiveNotes(obj)
     }
 
     let deletedNote = () => {
-        console.log(note.isDeleted)
         let obj = {
             noteIdList: [note.id],
             isDeleted: true,
@@ -97,15 +91,14 @@ function ViewNote(props) {
                     <div className="noteDescContainer"> {note.description} </div>
                 </div>
                 {
-                    (note.collaborators.length >= 1 || note.reminder.length >= 1 ) &&
-                    <div className="collabImageOnNote2Container" style={{cursor:"default", display:"flex", flexWrap:"wrap"}}>
-                    {
-                        note.collaborators.map(() => <div style={{cursor:"pointer"}} className="collabImageOnNote2"></div>)
-                    }
-
-                    {
-                        note.reminder.map((date)=><div className="viewReminder"> <Chip style={{width:"100%", fontWeight: "bold",}} icon={<ScheduleOutlinedIcon />} label={date} /> </div>)
-                    }
+                    (note.collaborators.length >= 1 || note.reminder.length >= 1) &&
+                    <div className="collabImageOnNote2Container" style={{ cursor: "default", display: "flex", flexWrap: "wrap", }}>
+                        {
+                            note.collaborators.map(() => <div style={{ cursor: "pointer", }} className="collabImageOnNote2"></div>)
+                        }
+                        {
+                            note.reminder.map((date) => <div> <Chip style={{ fontWeight: "bold", fontSize: "11px", }} icon={<ScheduleOutlinedIcon />} label={moment(date).utc().format('lll')} /> </div>)
+                        }
                     </div>
                 }
                 <div className="noteIcon">
