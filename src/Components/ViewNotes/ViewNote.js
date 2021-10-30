@@ -94,10 +94,10 @@ function ViewNote(props) {
                     (note.collaborators.length >= 1 || note.reminder.length >= 1) &&
                     <div className="collabImageOnNote2Container" style={{ cursor: "default", display: "flex", flexWrap: "wrap", }}>
                         {
-                            note.collaborators.map(() => <div style={{ cursor: "pointer", }} className="collabImageOnNote2"></div>)
+                            note.collaborators.map((collaborator) => <div key={collaborator.email} style={{ cursor: "pointer", }} className="collabImageOnNote2"></div>)
                         }
                         {
-                            note.reminder.map((date) => <div> <Chip style={{ fontWeight: "bold", fontSize: "11px", }} icon={<ScheduleOutlinedIcon />} label={moment(date).utc().format('lll')} /> </div>)
+                            note.reminder.map((date) => <div key={date}> <Chip style={{ fontWeight: "bold", fontSize: "11px", }} icon={<ScheduleOutlinedIcon />} label={moment(date).utc().format('lll')} /> </div>)
                         }
                     </div>
                 }
