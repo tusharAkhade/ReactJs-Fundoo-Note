@@ -14,7 +14,7 @@ function RouterDom() {
             <Provider store={store}>
             <BrowserRouter >
                 <Switch>
-                    <Route exact path='/' component={SignUp} />
+                    <AuthRoute exact path='/' component={SignUp} />
                     <AuthRoute path='/signin' component={SignIn} />
                     <ProtectedRoute path='/dashboard' component={Dashboard} />
                     <Route path='*' component={() => <h1> 404 page not found </h1>} />
